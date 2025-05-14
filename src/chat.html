@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- 必要に応じてCSSのパスを調整してください -->
+</head>
+<body>
+    <div id="chat-container">
+        <h1>Firebase Chat</h1>
+        <div id="chat-box">
+            <!-- メッセージがここに表示されます -->
+        </div>
+        <div id="input-area">
+            <input type="text" id="name-input" placeholder="Your Name" autocomplete="username">
+            <input type="text" id="message-input" placeholder="Enter message..." autocomplete="off">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCkMLtoQ-xdrSXJ0yPriireWlOkO0O5zzg", // ここに自身のFirebaseの設定を記入
+            authDomain: "abc-storage-chat.firebaseapp.com",
+            projectId: "abc-storage-chat",
+            storageBucket: "abc-storage-chat.firebasestorage.app",
+            messagingSenderId: "157302310385",
+            appId: "1:157302310385:web:8d32689a80979f1b7a7050",
+            measurementId: "G-R1KCCV2185"
+        };
+
+        // Firebaseの初期化
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const messagesRef = database.ref('messages');
+
+        // DOM Elements
+        const chatBox = document.getElementById('chat-box');
+        const nameInput = document.getElementById('name-input');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        // メッセージ送信
+        function sendMessage() {
+            const name = nameInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (name === "" || message === "") {
+                alert("名前とメッセージを入力してください。");
+                return;
+            }
+
+            // メッセージをFirebaseに追加
+            messagesRef.push({
+                name: name,
+                text: message,
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            });
+
+            messageInput.value = "";  // 送信後、メッセージ入力欄をクリア
+            messageInput.focus();     // メッセージ入力欄にフォーカスを戻す
+        }
+
+        // 新しいメッセージが追加されたときに表示
+        messagesRef.orderByChild('timestamp').on('child_added', (snapshot) => {
+            const message = snapshot.val();
+            displayMessage(message.name, message.text, message.timestamp);
+        });
+
+        // メッセージを表示
+        function displayMessage(name, text, timestamp) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+
+            const senderSpan = document.createElement('span');
+            senderSpan.classList.add('sender');
+            senderSpan.textContent = name;
+
+            const textSpan = document.createElement('span');
+            textSpan.classList.add('text');
+            textSpan.textContent = text;
+
+            const timeSpan = document.createElement('span');
+            timeSpan.classList.add('timestamp');
+            timeSpan.textContent = new Date(timestamp).toLocaleTimeString();
+
+            messageDiv.appendChild(senderSpan);
+            messageDiv.appendChild(textSpan);
+            messageDiv.appendChild(timeSpan);
+
+            chatBox.appendChild(messageDiv);
+
+            // 自動スクロール
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // 送信ボタンのクリックイベント
+        sendButton.addEventListener('click', sendMessage);
+
+        // Enterキーでもメッセージを送信
+        messageInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // 初期フォーカス
+        nameInput.focus();
+    </script>
+</body>
+</html>

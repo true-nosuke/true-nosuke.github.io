@@ -21,30 +21,31 @@ const chatBox = document.getElementById('chat-box');
 const nameInput = document.getElementById('name-input');
 const messageInput = document.getElementById('message-input');
 const sendButton = document.getElementById('send-button');
+document.getElementById("send-button").addEventListener("click", sendMessage);
 
-// 4. Send Message Function
 function sendMessage() {
-    const name = nameInput.value.trim();
-    const text = messageInput.value.trim();
+    const name = document.getElementById("name-input").value;
+    const message = document.getElementById("message-input").value;
 
-    if (name === "" || text === "") {
-        alert("名前とメッセージを入力してください。");
-        return;
+    // メッセージが空でないことを確認
+    if (name && message) {
+        // Firebase Realtime Databaseにデータを送信
+        const db = firebase.database();
+        db.ref("messages").push({
+            name: name,
+            message: message,
+            timestamp: Date.now()
+        }).then(() => {
+            // メッセージ送信後に入力フィールドをクリア
+            document.getElementById("message-input").value = "";
+        }).catch((error) => {
+            console.error("Error sending message: ", error);
+        });
+    } else {
+        alert("名前とメッセージを入力してください");
     }
-
-    // 新しいメッセージをFirebaseにプッシュ
-    messagesRef.push({
-        name: name,
-        text: text,
-        timestamp: firebase.database.ServerValue.TIMESTAMP // Firebaseサーバーのタイムスタンプを使用
-    }).catch(error => {
-        console.error("Error sending message: ", error);
-        alert("メッセージの送信に失敗しました。");
-    });
-
-    messageInput.value = ""; // 送信後、メッセージ入力欄をクリア
-    messageInput.focus();    // メッセージ入力欄にフォーカスを戻す
 }
+
 
 // 5. Listen for new messages and display them
 // 'child_added' イベントは、新しい子要素が 'messages' に追加されるたびに発火します
