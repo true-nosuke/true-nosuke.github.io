@@ -90,8 +90,6 @@ function displayMessage(name, text, timestamp) {
     // 自動で一番下にスクロール
     chatBox.scrollTop = chatBox.scrollHeight;
 }
-
-// 7. Event Listeners
 sendButton.addEventListener('click', sendMessage);
 
 messageInput.addEventListener('keypress', (event) => {
