@@ -67,125 +67,89 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
     background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    padding: 0;
     box-sizing: border-box;
-}
-
-#chat-container {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    width: 100%;
-    max-width: 600px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-h1 {
-    background-color: #007bff; /* よりモダンな青色 */
-    color: white;
-    padding: 18px 20px;
-    margin: 0;
     text-align: center;
-    font-size: 1.6em;
-    font-weight: 500;
 }
 
+/* チャット全体の枠 */
+#chat-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* メッセージ表示エリア */
 #chat-box {
-    height: 400px;
-    overflow-y: auto;
-    padding: 20px;
-    border-bottom: 1px solid #e0e0e0;
-    display: flex;
-    flex-direction: column;
+    height: 300px;
+    overflow-y: scroll;
+    padding: 10px;
+    text-align: left; /* ←ここでメッセージ部分を左揃えにする */
+    background-color: #fafafa;
+    border-bottom: 1px solid #ddd;
 }
 
+/* メッセージ1件分のスタイル */
 .message {
-    margin-bottom: 12px;
-    padding: 10px 15px;
-    border-radius: 18px; /* 丸みを帯びた吹き出し風 */
-    line-height: 1.5;
-    max-width: 75%;
-    word-wrap: break-word;
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    text-align: left; /* メッセージも左揃え */
 }
 
-.message .sender {
+/* メッセージの送信者名 */
+.sender {
     font-weight: bold;
-    color: #333;
-    margin-bottom: 4px; /* 名前とメッセージの間に少しスペース */
-    display: block; /* 名前を独立した行に */
-    font-size: 0.9em;
+    margin-right: 5px;
+    display: block;
 }
 
-.message .text {
-    color: #1c1e21; /* Facebook風のテキストカラー */
+/* メッセージ本文 */
+.text {
+    display: block;
+    margin-top: 4px;
 }
 
-/* 自分のメッセージを右寄せにするなどのスタイルは、ユーザーIDなどで判定する必要あり */
-/* この例ではシンプルに全てのメッセージを左寄せ */
-.message {
-    background-color: #e4e6eb; /* 淡いグレーの背景 */
-    align-self: flex-start; /* 左寄せ */
+/* タイムスタンプ */
+.timestamp {
+    font-size: 0.75em;
+    color: #666;
+    display: block;
+    text-align: right;
+    margin-top: 4px;
 }
 
-
+/* 入力エリア */
 #input-area {
     display: flex;
-    padding: 15px 20px;
-    background-color: #f9f9f9;
-    border-top: 1px solid #e0e0e0;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-top: 1px solid #ccc;
 }
 
-#name-input {
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
+#input-area input[type="text"] {
+    flex: 1;
+    padding: 8px;
     margin-right: 10px;
-    flex-basis: 150px; /* 名前入力欄の基本幅 */
-    font-size: 0.95em;
-}
-
-#message-input {
-    flex-grow: 1;
-    padding: 12px 15px;
     border: 1px solid #ccc;
-    border-radius: 20px; /* 丸みを帯びた入力欄 */
-    margin-right: 10px;
-    font-size: 0.95em;
+    border-radius: 5px;
 }
 
 #send-button {
-    padding: 12px 20px;
+    padding: 8px 12px;
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 20px; /* 丸みを帯びたボタン */
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 0.95em;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
 }
 
 #send-button:hover {
     background-color: #0056b3;
-}
-
-/* スクロールバーのスタイル（任意） */
-#chat-box::-webkit-scrollbar {
-    width: 8px;
-}
-#chat-box::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-#chat-box::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-}
-#chat-box::-webkit-scrollbar-thumb:hover {
-    background: #555;
 }
