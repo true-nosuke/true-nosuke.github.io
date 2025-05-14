@@ -13,11 +13,11 @@
     </header>
 
     <main>
-        <!-- Firebase Chat UI -->
+        <!-- チャットUI -->
         <section id="chat-container">
             <h1>Simple Chat with Firebase</h1>
             <div id="chat-box">
-                <!-- Messages will be displayed here -->
+                <!-- メッセージがここに表示されます -->
             </div>
             <div id="input-area">
                 <input type="text" id="name-input" placeholder="Your Name" autocomplete="username">
@@ -26,7 +26,7 @@
             </div>
         </section>
 
-        <!-- Game Container -->
+        <!-- ゲームコンテナ -->
         <section class="game-container">
             <h2>社会科！極限しりとり</h2>
             <p>中学校で学習した社会科用語のみをしりとりで使用できます。</p>
@@ -45,22 +45,96 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-analytics.js";
+    <script>
+        // Firebaseの設定
+        const firebaseConfig = {
+            apiKey: "AIzaSyCkMLtoQ-xdrSXJ0yPriireWlOkO0O5zzg",
+            authDomain: "abc-storage-chat.firebaseapp.com",
+            projectId: "abc-storage-chat",
+            storageBucket: "abc-storage-chat.firebasestorage.app",
+            messagingSenderId: "157302310385",
+            appId: "1:157302310385:web:8d32689a80979f1b7a7050",
+            measurementId: "G-R1KCCV2185"
+        };
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyCkMLtoQ-xdrSXJ0yPriireWlOkO0O5zzg",
-        authDomain: "abc-storage-chat.firebaseapp.com",
-        projectId: "abc-storage-chat",
-        storageBucket: "abc-storage-chat.firebasestorage.app",
-        messagingSenderId: "157302310385",
-        appId: "1:157302310385:web:8d32689a80979f1b7a7050",
-        measurementId: "G-R1KCCV2185"
-      };
+        // Firebase初期化
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const messagesRef = database.ref('messages');
 
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
+        // DOM要素取得
+        const chatBox = document.getElementById('chat-box');
+        const nameInput = document.getElementById('name-input');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        // メッセージ送信
+        function sendMessage() {
+            const name = nameInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (name === "" || message === "") {
+                alert("名前とメッセージを入力してください。");
+                return;
+            }
+
+            // Firebaseにメッセージを送信
+            messagesRef.push({
+                name: name,
+                text: message,
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            });
+
+            messageInput.value = "";  // メッセージ送信後、入力欄をクリア
+            messageInput.focus();     // メッセージ入力欄にフォーカスを戻す
+        }
+
+        // 新しいメッセージを受信して表示
+        messagesRef.orderByChild('timestamp').on('child_added', (snapshot) => {
+            const message = snapshot.val();
+            displayMessage(message.name, message.text, message.timestamp);
+        });
+
+        // メッセージを表示
+        function displayMessage(name, text, timestamp) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+
+            const senderSpan = document.createElement('span');
+            senderSpan.classList.add('sender');
+            senderSpan.textContent = name;
+
+            const textSpan = document.createElement('span');
+            textSpan.classList.add('text');
+            textSpan.textContent = text;
+
+            const timeSpan = document.createElement('span');
+            timeSpan.classList.add('timestamp');
+            timeSpan.textContent = new Date(timestamp).toLocaleTimeString();
+
+            messageDiv.appendChild(senderSpan);
+            messageDiv.appendChild(textSpan);
+            messageDiv.appendChild(timeSpan);
+
+            chatBox.appendChild(messageDiv);
+
+            // チャットウィンドウを自動スクロール
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // 送信ボタンクリック時
+        sendButton.addEventListener('click', sendMessage);
+
+        // Enterキーでもメッセージ送信
+        messageInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // 初期フォーカス
+        nameInput.focus();
     </script>
 </body>
 </html>
