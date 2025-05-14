@@ -1,13 +1,14 @@
 // 1. Firebase Configuration
 // Firebaseプロジェクト設定時に表示された `firebaseConfig` の値をここに貼り付けてください。
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com", // ご自身のデータベースURLを確認してください (リージョンによって異なる場合があります)
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCkMLtoQ-xdrSXJ0yPriireWlOkO0O5zzg",
+  authDomain: "abc-storage-chat.firebaseapp.com",
+  projectId: "abc-storage-chat",
+  storageBucket: "abc-storage-chat.firebasestorage.app",
+  messagingSenderId: "157302310385",
+  appId: "1:157302310385:web:8d32689a80979f1b7a7050",
+  measurementId: "G-R1KCCV2185"
 };
 
 // 2. Initialize Firebase
@@ -73,12 +74,12 @@ function displayMessage(name, text, timestamp) {
     textSpan.textContent = text;
 
     // (オプション) タイムスタンプを表示する場合
-    // const timeSpan = document.createElement('span');
-    // timeSpan.classList.add('timestamp');
-    // timeSpan.style.fontSize = '0.8em';
-    // timeSpan.style.color = '#777';
-    // timeSpan.style.marginLeft = '10px';
-    // timeSpan.textContent = `(${new Date(timestamp).toLocaleTimeString()})`;
+     const timeSpan = document.createElement('span');
+     timeSpan.classList.add('timestamp');
+     timeSpan.style.fontSize = '0.8em';
+     timeSpan.style.color = '#777';
+     timeSpan.style.marginLeft = '10px';
+     timeSpan.textContent = `(${new Date(timestamp).toLocaleTimeString()})`;
     
     messageDiv.appendChild(senderSpan);
     messageDiv.appendChild(textSpan);
