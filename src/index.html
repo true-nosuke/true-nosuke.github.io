@@ -8,7 +8,21 @@
     <link rel="icon" type="/asset" href="favicon.ico">
 </head>
 <body>
+    <div id="chat-container">
+        <h1>Simple Chat with Firebase</h1>
+        <div id="chat-box">
+            <!-- Messages will be displayed here -->
+        </div>
+        <div id="input-area">
+            <input type="text" id="name-input" placeholder="Your Name" autocomplete="username">
+            <input type="text" id="message-input" placeholder="Enter message..." autocomplete="off">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
 
+    <!-- Firebase SDK - 必ず最新バージョンを確認・利用することを推奨します -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <header>
         <h1>ABC倉庫 ダウンロード無しでプレイ可能</h1>
     </header>
@@ -31,4 +45,27 @@
     </footer>
 
 </body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyCkMLtoQ-xdrSXJ0yPriireWlOkO0O5zzg",
+    authDomain: "abc-storage-chat.firebaseapp.com",
+    projectId: "abc-storage-chat",
+    storageBucket: "abc-storage-chat.firebasestorage.app",
+    messagingSenderId: "157302310385",
+    appId: "1:157302310385:web:8d32689a80979f1b7a7050",
+    measurementId: "G-R1KCCV2185"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </html>
