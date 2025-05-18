@@ -26,10 +26,41 @@
             <h2>英単語！極限しりとり</h2>
             <p>英単語のみをしりとりで使用できます。英単語の長さが、得点に加算されます。</p>
             <p>180秒でどれだけスコアを獲得できるかな？パスボタンは、３回まで使用できます。</p>
-            <div class="game-frame">
-                <iframe src="https://abc-storage.github.io/asset/unity/ultimate_shiritori_english/index.html"
-                frameborder="0" scrolling="no"></iframe>
-            </div>
+<style>
+.game-frame-wrapper {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.game-frame {
+    display: inline-block;
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16 / 9;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+.game-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    transform-origin: top left;
+    overflow: hidden;
+}
+</style>
+
+<div class="game-frame-wrapper">
+    <div class="game-frame">
+        <iframe src="https://abc-storage.github.io/asset/unity/ultimate_shiritori_english/index.html" allowfullscreen></iframe>
+    </div>
+</div>
+
+
         </section>
     </main>
 
