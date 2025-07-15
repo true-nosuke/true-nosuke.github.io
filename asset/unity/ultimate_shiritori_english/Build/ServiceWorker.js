@@ -1,9 +1,9 @@
 const cacheName = "The-ABC-Siritori-1.0";
 const contentToCache = [
-    "Build/Ultimate_Shiritori_English.loader.js",
-    "Build/Ultimate_Shiritori_English.framework.js.unityweb",
-    "Build/Ultimate_Shiritori_English.data.unityweb",
-    "Build/Ultimate_Shiritori_English.wasm.unityweb",
+    "Build/Build.loader.js",
+    "Build/Build.framework.js.unityweb",
+    "Build/Build.data.unityweb",
+    "Build/Build.wasm.unityweb",
     "TemplateData/style.css"
 
 ];
