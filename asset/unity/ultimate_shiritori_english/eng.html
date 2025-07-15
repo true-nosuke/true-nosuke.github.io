@@ -6,10 +6,11 @@
     <title>Unity WebGL Player | Siritori</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="manifest" href="manifest.webmanifest">
   </head>
   <body>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+    <div id="unity-container">
+      <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -17,19 +18,18 @@
         </div>
       </div>
       <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Siritori_English</div>
-      </div>
     </div>
     <script>
+      window.addEventListener("load", function () {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("ServiceWorker.js");
+        }
+      });
 
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
 
       // Shows a temporary message banner/ribbon for a few seconds, or
@@ -38,42 +38,6 @@
       // Modify or remove this function to customize the visually presented
       // way that non-critical warnings and error messages are presented to the
       // user.
-
-      //ウインドウサイズに合わせキャンバスサイズを変更
-function fitWindowCanvasSize(){
-  
-  var winHeight = window.innerHeight;
-  const isViewUnderBar = false;  //falseにすると下部のバーが画面外に表示
-  if (isViewUnderBar){
-    const barHeight = 1;            //下部のバーサイズ
-    const barHeightMargin = 10*2;      //下部の追加余白サイズ
-    winHeight = winHeight - barHeight - barHeightMargin;
-  }
-  const winWidth = window.innerWidth;
-  const appWidth = "1920";
-  const appHeight = "1080";
-  const scale = Math.min((winWidth / appWidth), (winHeight / appHeight));
-  const fixWidth = (appWidth * scale);
-  const fixHeight = (appHeight * scale);
-
-  canvas.style.width = fixWidth + 'px';
-  canvas.style.height = fixHeight + 'px';
-}
-
-
-//ウインドウのリサイズ時の処理
-function windowResizeEvent(){
-  var timeoutId = 0;
-  const resizeDelay = 300;  //リサイズが完了したと判断する時間
-  window.onresize = () => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(()=>{
-      //リサイズ終了時の処理
-      fitWindowCanvasSize();
-    }, resizeDelay);
-  };
-}
-
       function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
           warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
@@ -99,48 +63,25 @@ function windowResizeEvent(){
         frameworkUrl: buildUrl + "/Ultimate_Shiritori_English.framework.js.unityweb",
         codeUrl: buildUrl + "/Ultimate_Shiritori_English.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
+        companyName: "The-ABC",
         productName: "Siritori",
         productVersion: "1.0",
         showBanner: unityShowBanner,
       };
 
-      // By default, Unity keeps WebGL canvas render target size matched with
+      // By default Unity keeps WebGL canvas render target size matched with
       // the DOM size of the canvas element (scaled by window.devicePixelRatio)
       // Set this to false if you want to decouple this synchronization from
       // happening inside the engine, and you would instead like to size up
       // the canvas DOM size and WebGL render target sizes yourself.
       // config.matchWebGLToCanvasSize = false;
 
-      // If you would like all file writes inside Unity Application.persistentDataPath
-      // directory to automatically persist so that the contents are remembered when
-      // the user revisits the site the next time, uncomment the following line:
-      // config.autoSyncPersistentDataPath = true;
-      // This autosyncing is currently not the default behavior to avoid regressing
-      // existing user projects that might rely on the earlier manual
-      // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
-      // expected to change.
-
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
-
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
-        container.className = "unity-mobile";
-        canvas.className = "unity-mobile";
-
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
-
-
-      } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
       }
 
       loadingBar.style.display = "block";
@@ -148,24 +89,15 @@ function windowResizeEvent(){
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
-
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
-              }).then((unityInstance) => {
-                loadingBar.style.display = "none";
-                fullscreenButton.onclick = () => {
-                  document.makeFullscreen('unity-container');
-                };
-              }).catch((message) => {
-                alert(message);
-              });
-              fitWindowCanvasSize(); // ← ここで初回サイズ調整を呼ぶ
-windowResizeEvent();   // ← リサイズイベントもセット
-
-            };
-
+        }).then((unityInstance) => {
+          loadingBar.style.display = "none";
+        }).catch((message) => {
+          alert(message);
+        });
+      };
       document.body.appendChild(script);
-
     </script>
   </body>
 </html>
