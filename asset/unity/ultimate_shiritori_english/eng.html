@@ -9,6 +9,23 @@
     <link rel="manifest" href="manifest.webmanifest">
   </head>
   <body>
+    <style>
+  #unity-loading-bar,
+  #unity-warning {
+    display: none !important;
+  }
+  #unity-container {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+  }
+</style>
+
     <div id="unity-container">
       <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
@@ -57,18 +74,17 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/Ultimate_Shiritori_English.loader.js";
+      var loaderUrl = buildUrl + "/Build.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Ultimate_Shiritori_English.data.unityweb",
-        frameworkUrl: buildUrl + "/Ultimate_Shiritori_English.framework.js.unityweb",
-        codeUrl: buildUrl + "/Ultimate_Shiritori_English.wasm.unityweb",
+        dataUrl: buildUrl + "/Build.data.unityweb",
+        frameworkUrl: buildUrl + "/Build.framework.js.unityweb",
+        codeUrl: buildUrl + "/Build.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "The-ABC",
         productName: "Siritori",
         productVersion: "1.0",
         showBanner: unityShowBanner,
       };
-
       // By default Unity keeps WebGL canvas render target size matched with
       // the DOM size of the canvas element (scaled by window.devicePixelRatio)
       // Set this to false if you want to decouple this synchronization from
