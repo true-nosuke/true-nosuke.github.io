@@ -1,0 +1,23 @@
+{
+  "project_info": {
+    "project_number": "980691413341",
+    "firebase_url": "https://ultimate-shiritori-rank-default-rtdb.firebaseio.com/",
+    "project_id": "ultimate-shiritori-rank",
+    "storage_bucket": "ultimate-shiritori-rank.appspot.com"
+  },
+  "client": [
+    {
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvEjyKGy1McDmoIPnQG7S8mdLb_0cKtqI"
+        }
+      ],
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789012:web:abc123def456",
+        "android_client_info": {
+          "package_name": "com.example.fake"
+        }
+      }
+    }
+  ]
+}
