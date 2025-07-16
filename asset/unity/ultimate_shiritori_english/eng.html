@@ -1,40 +1,89 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Siritori</title>
-  </head>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1" style="width: 1920px; height: 1080px; background: #231F20"></canvas>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC倉庫ーWebGL</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="favicon.ico">
+    <style>
+        .game-frame-wrapper {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .game-frame {
+            display: inline-block;
+            width: 100%;
+            max-width: 960px;
+            aspect-ratio: 16 / 9;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 12px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .game-frame canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #231F20;
+        }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0;">
+    <header>
+        <h1>ABC倉庫 ダウンロード無しでプレイ可能</h1>
+    </header>
+
+    <main>
+        <section id="chat-container">
+            <h1>Webチャット</h1>
+            <iframe src="chat.html" width="100%" height="500px" style="border:none;">
+                このブラウザではiframeをサポートしていません。
+            </iframe>
+        </section>
+
+        <section class="game-container">
+            <h2>英単語！極限しりとり</h2>
+            <p>英単語のみをしりとりで使用できます。</p>
+            <p>英単語の長さが、得点に加算されます。</p>
+            <p>※画面が隠れてしまう場合、全画面にすると直ることがあります。</p>
+            <p>180秒でどれだけスコアを獲得できるかな？パスボタンは、３回まで使用できます。</p>
+
+            <div class="game-frame-wrapper">
+                <div class="game-frame">
+                    <canvas id="unity-canvas" tabindex="-1"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ABC倉庫</p>
+    </footer>
+
+    <!-- Unity Loader Script -->
     <script src="Build/Ultimate_Shiritori_English.loader.js"></script>
     <script>
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            var meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        }
 
-        var canvas = document.querySelector("#unity-canvas");
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
-        canvas.style.position = "fixed";
-
-        document.body.style.textAlign = "left";
-      }
-
-      createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/Ultimate_Shiritori_English.data.unityweb",
-        frameworkUrl: "Build/Ultimate_Shiritori_English.framework.js.unityweb",
-        codeUrl: "Build/Ultimate_Shiritori_English.wasm.unityweb",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "The-ABC",
-        productName: "Siritori",
-        productVersion: "1.0",
-        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-      });
+        createUnityInstance(document.querySelector("#unity-canvas"), {
+            dataUrl: "Build/Ultimate_Shiritori_English.data.unityweb",
+            frameworkUrl: "Build/Ultimate_Shiritori_English.framework.js.unityweb",
+            codeUrl: "Build/Ultimate_Shiritori_English.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "The-ABC",
+            productName: "Siritori",
+            productVersion: "1.0",
+        });
     </script>
-  </body>
+</body>
 </html>

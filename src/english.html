@@ -5,15 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABC倉庫ーWebGL</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel=”icon” href="favicon.ico">
+    <link rel="icon" href="favicon.ico">
+    <style>
+        .game-frame-wrapper {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .game-frame {
+            display: inline-block;
+            width: 100%;
+            max-width: 960px;
+            aspect-ratio: 16 / 9;
+            border: 2px solid #ccc;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 12px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .game-frame canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #231F20;
+        }
+    </style>
 </head>
-<body>
+
+<body style="margin: 0; padding: 0;">
     <header>
         <h1>ABC倉庫 ダウンロード無しでプレイ可能</h1>
     </header>
 
     <main>
-        <!-- チャットUIを埋め込む -->
         <section id="chat-container">
             <h1>Webチャット</h1>
             <iframe src="chat.html" width="100%" height="500px" style="border:none;">
@@ -21,59 +46,43 @@
             </iframe>
         </section>
 
-        <!-- ゲームコンテナ -->
         <section class="game-container">
             <h2>英単語！極限しりとり</h2>
             <p>英単語のみをしりとりで使用できます。</p>
             <p>英単語の長さが、得点に加算されます。</p>
             <p>※画面が隠れてしまう場合、全画面にすると直ることがあります。</p>
             <p>180秒でどれだけスコアを獲得できるかな？パスボタンは、３回まで使用できます。</p>
-<style>
-.game-frame-wrapper {
-    text-align: center;
-    margin: 2rem 0;
-}
 
-.game-frame {
-    display: inline-block;
-    width: 100%;
-    max-width: 960px;
-    aspect-ratio: 16 / 9;
-    border: 2px solid #ccc;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 0 12px rgba(0,0,0,0.15);
-    position: relative;
-}
-
-.game-frame iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-    transform-origin: top left;
-    overflow: hidden;
-}
-</style>
-
-<div class="game-frame-wrapper">
-    <div class="game-frame">
-        <div id="unityContainer"></div>
-        <body style="margin: 0; padding: 0;">
-  <iframe src="https://abc-storage.github.io/asset/unity/ultimate_shiritori_english/eng.html"
-          allowfullscreen
-          style="width: 100vw; height: 100vh; border: none; display: block;">
-  </iframe>
-</body>
-    </div>
-</div>
-
-
+            <div class="game-frame-wrapper">
+                <div class="game-frame">
+                    <canvas id="unity-canvas" tabindex="-1"></canvas>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2025 ABC倉庫</p>
     </footer>
+
+    <script src="../asset/unity/ultimate_shiritori_english/Build/Ultimate_Shiritori_English.loader.js"></script>
+    <script>
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            var meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        }
+
+        createUnityInstance(document.querySelector("#unity-canvas"), {
+            dataUrl: "../asset/unity/ultimate_shiritori_english/Build/Ultimate_Shiritori_English.data.unityweb",
+            frameworkUrl: "../asset/unity/ultimate_shiritori_english/Build/Ultimate_Shiritori_English.framework.js.unityweb",
+            codeUrl: "../asset/unity/ultimate_shiritori_english/Build/Ultimate_Shiritori_English.wasm.unityweb",
+            streamingAssetsUrl: "../asset/unity/ultimate_shiritori_english/StreamingAssets",
+            companyName: "The-ABC",
+            productName: "Siritori",
+            productVersion: "1.0",
+        });
+    </script>
 </body>
 </html>
