@@ -30,6 +30,42 @@
             display: block;
             background: #231F20;
         }
+
+        .game-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .game-link {
+            display: block;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .game-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .game-link:nth-child(2) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .game-link:nth-child(3) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
     </style>
 </head>
 
@@ -38,9 +74,11 @@
         <h1>のすけtrue ダウンロード無しでプレイ可能</h1>
     </header>
     <h2>ゲーム一覧</h2>
-<a href="https://true-nosuke.github.io/src/syakai.html"> 社会科! 極限しりとりーのすけのゲーム </a>
-<br>
-<a href="https://true-nosuke.github.io/src/english.html"> English! Ultimate Shiritori ーNosuke Games </a>
+    <div class="game-list">
+        <a href="https://true-nosuke.github.io/src/syakai.html" class="game-link">社会科! 極限しりとりーのすけのゲーム</a>
+        <a href="https://true-nosuke.github.io/src/english.html" class="game-link">English! Ultimate Shiritori ーNosuke Games</a>
+        <a href="https://true-nosuke.github.io/ou_gaku_kai_changer/index.html" class="game-link">応学会変換器ーのすけのゲーム</a>
+    </div>
     <footer>
         <p>&copy; 2025 のすけtrue</p>
     </footer>
