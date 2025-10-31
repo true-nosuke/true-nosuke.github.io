@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latex記法の備忘録ーのすけのゲーム</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet"
+        type="text/css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            font-weight: bold;
+        }
+
+        table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        h2 {
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+            margin-top: 2rem;
+        }
+
+        pre {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        code {
+            background: #f1f3f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+    </style>
+    <style>
+        .task-list-item {
+            list-style-type: none;
+        }
+
+        .task-list-item-checkbox {
+            margin-left: -20px;
+            vertical-align: middle;
+            pointer-events: none;
+        }
+    </style>
+    <style>
+        :root {
+            --color-note: #0969da;
+            --color-tip: #1a7f37;
+            --color-warning: #9a6700;
+            --color-severe: #bc4c00;
+            --color-caution: #d1242f;
+            --color-important: #8250df;
+        }
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-note: #2f81f7;
+                --color-tip: #3fb950;
+                --color-warning: #d29922;
+                --color-severe: #db6d28;
+                --color-caution: #f85149;
+                --color-important: #a371f7;
+            }
+        }
+    </style>
+    <style>
+        .markdown-alert {
+            padding: 0.5rem 1rem;
+            margin-bottom: 16px;
+            color: inherit;
+            border-left: .25em solid #888;
+        }
+
+        .markdown-alert>:first-child {
+            margin-top: 0
+        }
+
+        .markdown-alert>:last-child {
+            margin-bottom: 0
+        }
+
+        .markdown-alert .markdown-alert-title {
+            display: flex;
+            font-weight: 500;
+            align-items: center;
+            line-height: 1
+        }
+
+        .markdown-alert .markdown-alert-title .octicon {
+            margin-right: 0.5rem;
+            display: inline-block;
+            overflow: visible !important;
+            vertical-align: text-bottom;
+            fill: currentColor;
+        }
+
+        .markdown-alert.markdown-alert-note {
+            border-left-color: var(--color-note);
+        }
+
+        .markdown-alert.markdown-alert-note .markdown-alert-title {
+            color: var(--color-note);
+        }
+
+        .markdown-alert.markdown-alert-important {
+            border-left-color: var(--color-important);
+        }
+
+        .markdown-alert.markdown-alert-important .markdown-alert-title {
+            color: var(--color-important);
+        }
+
+        .markdown-alert.markdown-alert-warning {
+            border-left-color: var(--color-warning);
+        }
+
+        .markdown-alert.markdown-alert-warning .markdown-alert-title {
+            color: var(--color-warning);
+        }
+
+        .markdown-alert.markdown-alert-tip {
+            border-left-color: var(--color-tip);
+        }
+
+        .markdown-alert.markdown-alert-tip .markdown-alert-title {
+            color: var(--color-tip);
+        }
+
+        .markdown-alert.markdown-alert-caution {
+            border-left-color: var(--color-caution);
+        }
+
+        .markdown-alert.markdown-alert-caution .markdown-alert-title {
+            color: var(--color-caution);
+        }
+    </style>
+    <header>
+        <h1>のすけtrue ダウンロード無しでプレイ可能</h1>
+    </header>
+</head>
+
+<body>
+    <main>
+        <p>このページの文章は、ChatGPTが生成したよ</p>
+    <hr>
+
+    <h1 id="-latex-よく使う構文一覧2025年最新版">📚 LaTeX よく使う構文一覧【2025年最新版】</h1>
+    <p>LaTeXを使う上でよく登場する構文をジャンル別にまとめました。これさえあれば、レポートも論文も怖くないぜ！</p>
+    <hr>
+    <h2 id="-基本構文">📝 基本構文</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>内容</th>
+                <th>コード例</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ドキュメントクラス</td>
+                <td><code>\documentclass[a4paper,12pt]{article}</code></td>
+            </tr>
+            <tr>
+                <td>タイトルの設定</td>
+                <td><code>\title{タイトル}</code><br><code>\author{著者名}</code><br><code>\date{日付}</code></td>
+            </tr>
+            <tr>
+                <td>タイトル出力</td>
+                <td><code>\maketitle</code></td>
+            </tr>
+            <tr>
+                <td>文章開始〜終了</td>
+                <td><code>\begin{document} ... \end{document}</code></td>
+            </tr>
+            <tr>
+                <td>改行</td>
+                <td><code>\\</code> または <code>\newline</code></td>
+            </tr>
+            <tr>
+                <td>段落分け</td>
+                <td>空行を挿入</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <h2 id="-文字装飾">🔤 文字装飾</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>表現</th>
+                <th>コマンド例</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>太字</td>
+                <td><code>\textbf{太字}</code></td>
+            </tr>
+            <tr>
+                <td>斜体</td>
+                <td><code>\textit{斜体}</code></td>
+            </tr>
+            <tr>
+                <td>下線</td>
+                <td><code>\underline{下線}</code></td>
+            </tr>
+            <tr>
+                <td>等幅フォント</td>
+                <td><code>\texttt{コード}</code></td>
+            </tr>
+            <tr>
+                <td>大きな文字</td>
+                <td><code>{\Large 文字}</code> や <code>{\Huge 文字}</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <h2 id="-セクション見出し">📏 セクション見出し</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>見出しのレベル</th>
+                <th>コマンド例</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>セクション</td>
+                <td><code>\section{タイトル}</code></td>
+            </tr>
+            <tr>
+                <td>サブセクション</td>
+                <td><code>\subsection{タイトル}</code></td>
+            </tr>
+            <tr>
+                <td>サブサブセクション</td>
+                <td><code>\subsubsection{タイトル}</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <h2 id="-数式インラインディスプレイ">📐 数式（インライン・ディスプレイ）</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>種類</th>
+                <th>コマンド例</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>インライン</td>
+                <td><code>$x^2 + y^2 = z^2$</code></td>
+            </tr>
+            <tr>
+                <td>センタリング表示</td>
+                <td><code>\[ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]</code></td>
+            </tr>
+            <tr>
+                <td>数式環境</td>
+                <td><code>\begin{equation} ... \end{equation}</code></td>
+            </tr>
+            <tr>
+                <td>行列</td>
+                <td><code>\begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix}</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <h2 id="-図表参照">🔗 図・表・参照</h2>
+    <h3 id="-表表組み">📊 表（表組み）</h3>
+    <pre><code class="language-latex"><span class="hljs-keyword">\begin</span>{tabular}{|c|c|}
+<span class="hljs-keyword">\hline</span>
+項目A <span class="hljs-built_in">&amp;</span> 項目B <span class="hljs-keyword">\\</span>
+<span class="hljs-keyword">\hline</span>
+値1 <span class="hljs-built_in">&amp;</span> 値2 <span class="hljs-keyword">\\</span>
+<span class="hljs-keyword">\hline</span>
+<span class="hljs-keyword">\end</span>{tabular}
+</code></pre>
+    <h3 id="-画像の挿入">🖼 画像の挿入</h3>
+    <pre><code class="language-latex"><span class="hljs-keyword">\begin</span>{figure}[htbp]
+  <span class="hljs-keyword">\centering</span>
+  <span class="hljs-keyword">\includegraphics</span>[width=0.5<span class="hljs-keyword">\linewidth</span>]{images/sample.png}
+  <span class="hljs-keyword">\caption</span>{キャプション}
+  <span class="hljs-keyword">\label</span>{fig:sample}
+<span class="hljs-keyword">\end</span>{figure}
+</code></pre>
+    <ul>
+        <li>画像の幅調整：<code>width=0.8\linewidth</code> など</li>
+        <li>ラベルで参照：<code>\ref{fig:sample}</code></li>
+    </ul>
+    <hr>
+    <h2 id="-箇条書き番号リスト">🔢 箇条書き・番号リスト</h2>
+    <h3 id="箇条書きbullet">箇条書き（bullet）</h3>
+    <pre><code class="language-latex"><span class="hljs-keyword">\begin</span>{itemize}
+  <span class="hljs-keyword">\item</span> 項目1
+  <span class="hljs-keyword">\item</span> 項目2
+<span class="hljs-keyword">\end</span>{itemize}
+</code></pre>
+    <h3 id="番号付きリスト">番号付きリスト</h3>
+    <pre><code class="language-latex"><span class="hljs-keyword">\begin</span>{enumerate}
+  <span class="hljs-keyword">\item</span> その1
+  <span class="hljs-keyword">\item</span> その2
+<span class="hljs-keyword">\end</span>{enumerate}
+</code></pre>
+    <hr>
+    <h2 id="-引用参考文献簡易版">📚 引用・参考文献（簡易版）</h2>
+    <h3 id="文献リストを手書きで書く場合">文献リストを手書きで書く場合：</h3>
+    <pre><code class="language-latex"><span class="hljs-keyword">\begin</span>{thebibliography}{99}
+  <span class="hljs-keyword">\bibitem</span>{ref1} A. Einstein, <span class="hljs-keyword">\textit</span>{Relativity}, 1916.
+<span class="hljs-keyword">\end</span>{thebibliography}
+</code></pre>
+    <hr>
+    <h2 id="-定理証明環境amsthm-使用">🧪 定理・証明環境（<code>amsthm</code> 使用）</h2>
+    <pre><code class="language-latex"><span class="hljs-keyword">\newtheorem</span>{theorem}{定理}
+<span class="hljs-keyword">\begin</span>{theorem}
+任意の偶数は2の倍数である。
+<span class="hljs-keyword">\end</span>{theorem}
+</code></pre>
+    <hr>
+    <h2 id="-その他よく使う便利な構文">🧩 その他よく使う便利な構文</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>機能</th>
+                <th>コマンド例</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ページ区切り</td>
+                <td><code>\newpage</code></td>
+            </tr>
+            <tr>
+                <td>行間の調整</td>
+                <td><code>\linespread{1.3}</code></td>
+            </tr>
+            <tr>
+                <td>空白の挿入</td>
+                <td><code>\quad</code>, <code>\hspace{1cm}</code>, <code>\vspace{2mm}</code></td>
+            </tr>
+            <tr>
+                <td>コメントアウト</td>
+                <td><code>% コメント文</code></td>
+            </tr>
+            <tr>
+                <td>特殊文字の出力</td>
+                <td><code>\# \$ \% \_ \{ \}</code> などエスケープが必要</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <h2 id="-まとめ">🌐 まとめ</h2>
+    <p>LaTeXは覚えることが多いようで、<strong>一度書いてしまえば再利用が効く</strong>のが魅力。
+        この一覧をブックマークして、<strong>レポート・論文執筆の時短</strong>に活用してください！</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 のすけtrue</p>
+    </footer>
+</body>
+</html>
