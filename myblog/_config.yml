@@ -28,7 +28,7 @@ twitter_username: true-nosuke
 github_username:  true-nosuke
 
 # Build settings
-theme: slate
+theme: minima
 plugins:
   - jekyll-feed
 
