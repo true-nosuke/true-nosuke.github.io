@@ -14,7 +14,8 @@ tags: [github,programming,code]
 プロ アマ問わずエンジニアなら誰でも重宝する、ソフトウェア開発プラットフォームであるGithubが提供する、学生支援特典です。2025年11月現在、その特典には本来有料であるべきツールやサービスが無料で含まれています。
 主な特典の内容を見てみましょう。
 
-英語ですが、公式ページでも紹介されています。[https://github.com/education?locale=ja]
+英語ですが、公式ページでも紹介されています。[https://github.com/education?locale=ja](https://github.com/education?locale=ja)
+
 
 - GitHub Pro：有料プランを学生期間中無料で利用可能。
 - JetBrains：人気IDE（IntelliJ, PyCharmなど）の全製品スイートの無料ライセンス。
@@ -43,7 +44,7 @@ tags: [github,programming,code]
 ## 申請の下準備
 ### 自分のプロフィール欄を埋める
 
-https://github.com/settings/profile
+[https://github.com/settings/profile](https://github.com/settings/profile)
 
 まず、このページより、自分のPublic Profileの欄をできる限り埋めます。アカウントがない人は最初に作りましょう。
 
@@ -94,70 +95,70 @@ https://github.com/settings/billing/payment_information
 最後に「Save Billing Information」を押すことを忘れずに
 
 ### 二要素認証を済ます
-https://github.com/settings/security
-このページから、二要素認証を済ましておく必要があります。
-もしやっていなければやってください。（やっていないと申請が落ちます）
+[https://github.com/settings/security](https://github.com/settings/security)  
+このページから、二要素認証を済ましておく必要があります。  
+もしやっていなければやってください。（やっていないと申請が落ちます）  
 
 ## 証明書を作る。
-松本深志高校では、入学時に高等課程身分証明書をもらいます。
-Github Educationに申請するには英語の身分証明書が必要になるのですが、多分もらえませんし、もらう必要はありません。
-そのための方法の一つとして、パソコン身分証明書を英語に翻訳します。
+松本深志高校では、入学時に高等課程身分証明書をもらいます。  
+Github Educationに申請するには英語の身分証明書が必要になるのですが、多分もらえませんし、もらう必要はありません。  
+そのための方法の一つとして、パソコン身分証明書を英語に翻訳します。  
 
-### 証明書を英語に翻訳する。
-手順としては、こんな感じです。
-- 身分証明書の撮影をし、パソコンなどに取り入れる
-- デザインアプリ（Canvaなどのレベルで充分）に画像をアップロード
-画像に塗りつぶし、テキストの追加ができればよいです。
-ここでは、所属、学年、氏名、生年月日、住所（家）、発行者所在地、学校名、代表者名を自然な色で塗りつぶし、
-所属、学年、氏名、生年月日、住所（学校）の英語翻訳文をその上に入力します。
+### 証明書を英語に翻訳する。  
+手順としては、こんな感じです。  
+- 身分証明書の撮影をし、パソコンなどに取り入れる  
+- デザインアプリ（Canvaなどのレベルで充分）に画像をアップロード  
+画像に塗りつぶし、テキストの追加ができればよいです。  
+ここでは、所属、学年、氏名、生年月日、住所（家）、発行者所在地、学校名、代表者名を自然な色で塗りつぶし、  
+所属、学年、氏名、生年月日、住所（学校）の英語翻訳文をその上に入力します。  
 それぞれの英語翻訳を紹介します。
 
-所属　全日制　普通科：
-Affiliation: Full-time regular course
-学年　１学年（８年度生）：
-Grade 1 (2026 entered) 
-※英語翻訳では、西暦を用いる。
-名前：
-Name：半角スペース 下の名前 半角スペース 苗字
-必ずローマ字で。
-生年月日：
-Date of Birth：DD/MM/YYYY
-※通常の書き方と順番が異なる点に注意（例：2011年09月03日→03/09/2011）
-発行者所在地：
-Address：Nagano Prefectural Matsumoto Fukashi High School
-3-8-1 Arigasaki, Matsumoto-shi , Nagano Prefectural 390-8603
-※家の住所は見えるようにする必要はない。（塗りつぶしても良い）その代わりとして、学校の住所を入れる。
-
+所属　全日制　普通科：  
+Affiliation: Full-time regular course  
+学年　１学年（８年度生）：  
+Grade 1 (2026 entered)   
+※英語翻訳では、西暦を用いる。  
+名前：  
+Name：半角スペース 下の名前 半角スペース 苗字  
+必ずローマ字で。  
+生年月日：  
+Date of Birth：DD/MM/YYYY  
+※通常の書き方と順番が異なる点に注意（例：2011年09月03日→03/09/2011）  
+発行者所在地：  
+Address：Nagano Prefectural Matsumoto Fukashi High School  
+3-8-1 Arigasaki, Matsumoto-shi , Nagano Prefectural 390-8603  
+※家の住所は見えるようにする必要はない。（塗りつぶしても良い）その代わりとして、学校の住所を入れる。  
+ 
 これで一枚の身分証明書を作れると思います。作った画像は、全画面を覆うのではなく、縮小し、画面の下半分に寄せてください。（日本語の証明書も写すため。）
 
 
 ### 申請をする
 
-https://github.com/settings/education/benefits
+[https://github.com/settings/education/benefits](https://github.com/settings/education/benefits)
 
-ここまでは申請への下準備でした。いよいよ、申請をします。このページから申請を開始できます。
-Start An Applicationを押します。
-Select your role in education: 
-これは、Studentを入力
-
-School Name
-学校の名前を入れます。
-Nagano Prefecture Matsumoto Fukashi High School
-と
-Matsumoto Fukashi High School
-の二種が検索候補で出てくると思いますが、
-Nagano Prefectureが付いた方を選択してください。
-**もう一つはダミーです！！**
-入力したら、Share Locationを押してください。このとき、Githubに位置情報が伝えられるのですが、この位置情報が学校に近いほうがベストです。ただ、4~5km程度なら大丈夫だと思います。
-次に、証明書の証拠を提出します。
-Please select the type of proof you would like to provideでは、
-「1. Dated school ID - Good」を選択してください。
-その次に証明書の撮影です。
-パソコンで先程作成した英語の証明書を全画面モードで表示してください。
-その上に片手で日本語の紙の証明書を持ちながら、もう片方の手でCapture Photoを押します。このとき、両方の証明書がなにかに隠れずに見えるようにしてください。
-また、光の反射や、暗すぎるとAIの判定ができなくなりますので、注意してください。
-写真を撮影した痕、Submit Applicationを押すことで申請は完了です。
+ここまでは申請への下準備でした。いよいよ、申請をします。このページから申請を開始できます。  
+Start An Applicationを押します。  
+Select your role in education:   
+これは、Studentを入力  
+ 
+School Name  
+学校の名前を入れます。  
+Nagano Prefecture Matsumoto Fukashi High School  
+と  
+Matsumoto Fukashi High School  
+の二種が検索候補で出てくると思いますが、  
+Nagano Prefectureが付いた方を選択してください。  
+**もう一つはダミーです！！**  
+入力したら、Share Locationを押してください。このとき、Githubに位置情報が伝えられるのですが、この位置情報が学校に近いほうがベストです。ただ、4~5km程度なら大丈夫だと思います。  
+次に、証明書の証拠を提出します。  
+Please select the type of proof you would like to provideでは、  
+「1. Dated school ID - Good」を選択してください。  
+その次に証明書の撮影です。  
+パソコンで先程作成した英語の証明書を全画面モードで表示してください。  
+その上に片手で日本語の紙の証明書を持ちながら、もう片方の手でCapture Photoを押します。このとき、両方の証明書がなにかに隠れずに見えるようにしてください。  
+また、光の反射や、暗すぎるとAIの判定ができなくなりますので、注意してください。  
+写真を撮影した痕、Submit Applicationを押すことで申請は完了です。  
 
 # お疲れ様でした
-もし申請が通れば、5分後にその旨を伝えるメールが届き、3日後に使えるようになると思います。
+もし申請が通れば、5分後にその旨を伝えるメールが届き、3日後に使えるようになると思います。  
 Copilotの使い方は調べれば出てきます
