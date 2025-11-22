@@ -6,8 +6,6 @@ categories: [tech]
 tags: [github,programming,code]
 --- 
 
-# Github Educationを確実に申請する方法 松本深志Ver 兼備忘録
-
 こんにちは。今回は学生なら誰でも申請できるGithub Educationの承認を貰う方法を説明します。
 
 ## Github Educationとは？
