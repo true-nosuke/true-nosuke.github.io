@@ -1,12 +1,12 @@
 ---
 layout: post
 title: "Github Educationを確実に申請する方法 松本深志Ver"
-date: 2025-11-20 19:23:00 +0900
+date: 3000-11-20 19:23:00 +0900
 categories: [tech]
 tags: [github,programming,code]
 --- 
 
-# Github Educationを確実に申請する方法 兼備忘録
+# Github Educationを確実に申請する方法 松本深志Ver 兼備忘録
 
 こんにちは。今回は学生なら誰でも申請できるGithub Educationの承認を貰う方法を説明します。
 
@@ -36,6 +36,8 @@ tags: [github,programming,code]
 - 年齢制限：通常、13歳以上である必要があります。
 - 証明書類：学生証、在学証明書、または学校発行のメールアドレスなど、学生であることを証明できる公式な書類や情報が必要です。
 
+めんどくさそうなことが書いてありますが、**深志高校生なら確定で条件に当てはまっているので使えます**
+
 今更ですが、この特典は1年毎に申請する必要があるので、自分の備忘録としても残します。
 続いて、その申請方法についてです。
 
@@ -55,7 +57,7 @@ tags: [github,programming,code]
 - Public email
   何も選択しない
 - Bio
- 「High school student at ＜英語で学校の名前＞. Learning programming and development.」
+ 「High school student at Matsumoto Fukashi High School. Learning programming and development.」
  と入れてください。これも承認後変更できます。
 - Pronouns
   　何かしらに選択しておく
@@ -63,10 +65,10 @@ tags: [github,programming,code]
 - Social accounts
   任意で入れる
 - Company
- ＜学校の名前を英語で＞入れる。
+ 「Nagano Prefecture Matsumoto Fukashi High School」と入れる。
  これも承認後、変更できます。
 - Location
-  「＜都道府県（英語）＞, Japan」と入れる。
+  「Nagano, Japan」と入れる。
 
   最後に一番下のUpdate Profileボタンを押すのを忘れずに。
 
@@ -83,10 +85,11 @@ https://github.com/settings/billing/payment_information
   自分の**ローマ字**の上の名前を入力
 - Address
   ここには英語で学校の住所を入れます。
+  Nagano Prefectural Matsumoto Fukashi High School  
 - Address Line2
   空欄
 - City
-  市町村 丁番を英語で
+  3-8-1 Arigasaki, Matsumoto-shi 
 -Country
 　Japanを選択
 最後に「Save Billing Information」を押すことを忘れずに
@@ -97,9 +100,9 @@ https://github.com/settings/billing/payment_information
 もしやっていなければやってください。（やっていないと申請が落ちます）  
 
 ## 証明書を作る。
-学校でもらえる、身分証明書の画像を加工します。
-Github Educationに申請するには英語の身分証明書が必要になるのですが、学校にもらう必要はありません。  
-そのための方法の一つとして、パソコンで身分証明書を英語に翻訳します。  
+松本深志高校では、入学時に高等課程身分証明書をもらいます。  
+Github Educationに申請するには英語の身分証明書が必要になるのですが、多分もらえませんし、もらう必要はありません。  
+そのための方法の一つとして、パソコン身分証明書を英語に翻訳します。  
 
 ### 証明書を英語に翻訳する。  
 手順としては、こんな感じです。  
@@ -108,7 +111,7 @@ Github Educationに申請するには英語の身分証明書が必要になる�
 画像に塗りつぶし、テキストの追加ができればよいです。  
 ここでは、所属、学年、氏名、生年月日、住所（家）、発行者所在地、学校名、代表者名を自然な色で塗りつぶし、  
 所属、学年、氏名、生年月日、住所（学校）の英語翻訳文をその上に入力します。  
-それぞれの英語翻訳例を紹介します。
+それぞれの英語翻訳を紹介します。
 
 所属　全日制　普通科：  
 Affiliation: Full-time regular course  
@@ -122,7 +125,8 @@ Name：半角スペース 下の名前 半角スペース 苗字
 Date of Birth：DD/MM/YYYY  
 ※通常の書き方と順番が異なる点に注意（例：2011年09月03日→03/09/2011）  
 発行者所在地：  
-＜学校の住所を英語で＞
+Address：Nagano Prefectural Matsumoto Fukashi High School  
+3-8-1 Arigasaki, Matsumoto-shi , Nagano Prefectural 390-8603  
 ※家の住所は見えるようにする必要はない。（塗りつぶしても良い）その代わりとして、学校の住所を入れる。  
  
 これで一枚の身分証明書を作れると思います。作った画像は、全画面を覆うのではなく、縮小し、画面の下半分に寄せてください。（日本語の証明書も写すため。）
@@ -139,7 +143,12 @@ Select your role in education:
  
 School Name  
 学校の名前を入れます。  
-
+Nagano Prefecture Matsumoto Fukashi High School  
+と  
+Matsumoto Fukashi High School  
+の二種が検索候補で出てくると思いますが、  
+Nagano Prefectureが付いた方を選択してください。  
+**もう一つはダミーです！！**  
 入力したら、Share Locationを押してください。このとき、Githubに位置情報が伝えられるのですが、この位置情報が学校に近いほうがベストです。ただ、4~5km程度なら大丈夫だと思います。  
 次に、証明書の証拠を提出します。  
 Please select the type of proof you would like to provideでは、  
