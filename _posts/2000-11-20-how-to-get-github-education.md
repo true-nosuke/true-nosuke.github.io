@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Github Educationを確実に申請する方法 松本深志Ver"
-date: 2100-11-20 19:23:00 +0900
+date: 2000-11-20 19:23:00 +0900
 categories: [tech]
 tags: [github,programming,code]
 --- 
