@@ -14,13 +14,13 @@ function createCard(item) {
   h3.textContent = item.item || '—';
   card.appendChild(h3);
 
-  const pStock = document.createElement('p');
-  pStock.textContent = item.stock || '';
-  card.appendChild(pStock);
-
   const pRemark = document.createElement('p');
-  pRemark.textContent = `残り：${item.remark || ''}`;
+  pRemark.textContent = `残り：${item.stock || ''}`;
   card.appendChild(pRemark);
+
+  const pStock = document.createElement('p');
+  pStock.textContent = item.remark || '';
+  card.appendChild(pStock);
 
   return card;
 }
