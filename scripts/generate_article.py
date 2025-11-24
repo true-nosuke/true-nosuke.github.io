@@ -4,7 +4,7 @@ import google.generativeai as genai
 import os
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-2.0-flash-exp')
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 # --- ① AI にランダムテーマを作らせる ---
 topic_prompt = """
@@ -31,8 +31,8 @@ content = res.text
 
 # --- ③ ファイル保存 ---
 date = datetime.now().strftime("%Y-%m-%d")
-os.makedirs("posts", exist_ok=True)
-filename = f"posts/{date}.md"
+os.makedirs("_posts", exist_ok=True)
+filename = f"_posts/{date}.md"
 
 with open(filename, "w", encoding="utf-8") as f:
     f.write(content)
