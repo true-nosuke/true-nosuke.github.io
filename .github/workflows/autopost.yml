@@ -26,46 +26,64 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          python3 <<EOF
-from datetime import datetime
-import openai
-import os
+          python3 -c '
+          from datetime import datetime
+          import openai
+          import os
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+          openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# 今日の日付
-date = datetime.now().strftime("%Y-%m-%d")
+          # --- ① AI にランダムテーマを作らせる ---
+          topic_prompt = """
+          AIに関するブログ記事のテーマを1つ、日本語で提案してください。
+          毎回異なるテーマで、SEO需要があるもの。
+          出力は1行のみ。
+          """
 
-# AI に記事を作らせる
-prompt = """
-今日のSEO向けブログ記事を日本語で生成してください。
-構成（タイトル、導入、見出し、本文）を含めてMarkdownで出力。
-テーマは「AI とブログ収益の最新トレンド」。
-"""
+          topic_res = openai.ChatCompletion.create(
+              model="gpt-3.5-turbo",
+              messages=[{"role": "user", "content": topic_prompt}]
+          )
 
-response = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": prompt}]
-)
+          topic = topic_res["choices"][0]["message"]["content"]
+          print("Today's topic:", topic)
 
-content = response["choices"][0]["message"]["content"]
 
-# 記事ファイルを生成
-filename = f"posts/{date}.md"
-os.makedirs("posts", exist_ok=True)
-with open(filename, "w") as f:
-    f.write(content)
+          # --- ② そのテーマで記事を生成 ---
+          article_prompt = f"""
+          以下のテーマでSEO最適化されたブログ記事を日本語で書いてください。
 
-EOF
+          テーマ：{topic}
 
-      - name: Commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Actions"
-          git add .
-          git commit -m "Auto post" || echo "No changes to commit"
+          Markdown形式で、タイトル, 導入, H2見出し構成, 本文, まとめ を含めてください。
+          """
 
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          res = openai.ChatCompletion.create(
+              model="gpt-3.5-turbo",
+              messages=[{"role": "user", "content": article_prompt}]
+          )
+
+          content = res["choices"][0]["message"]["content"]
+
+
+          # --- ③ ファイル保存 ---
+          date = datetime.now().strftime("%Y-%m-%d")
+          os.makedirs("posts", exist_ok=True)
+          filename = f"posts/{date}.md"
+
+          with open(filename, "w") as f:
+              f.write(content)
+
+          EOF
+
+                - name: Commit files
+                  run: |
+                    git config --local user.email "action@github.com"
+                    git config --local user.name "GitHub Actions"
+                    git add .
+                    git commit -m "Auto post" || echo "Nothing to commit"
+
+                - name: Push changes
+                  uses: ad-m/github-push-action@v0.6.0
+                  with:
+                    github_token: ${{ secrets.GITHUB_TOKEN }}
