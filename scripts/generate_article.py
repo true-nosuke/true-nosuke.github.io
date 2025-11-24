@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 from datetime import datetime
-import openai
+import google.generativeai as genai
 import os
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel('gemini-2.0-flash-exp')
 
 # --- ① AI にランダムテーマを作らせる ---
 topic_prompt = """
@@ -12,12 +13,8 @@ AIに関するブログ記事のテーマを1つ、日本語で提案してく�
 出力は1行のみ。
 """
 
-topic_res = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": topic_prompt}]
-)
-
-topic = topic_res["choices"][0]["message"]["content"]
+topic_res = model.generate_content(topic_prompt)
+topic = topic_res.text.strip()
 print("Today's topic:", topic)
 
 # --- ② そのテーマで記事を生成 ---
@@ -29,12 +26,8 @@ article_prompt = f"""
 Markdown形式で、タイトル, 導入, H2見出し構成, 本文, まとめ を含めてください。
 """
 
-res = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[{"role": "user", "content": article_prompt}]
-)
-
-content = res["choices"][0]["message"]["content"]
+res = model.generate_content(article_prompt)
+content = res.text
 
 # --- ③ ファイル保存 ---
 date = datetime.now().strftime("%Y-%m-%d")
