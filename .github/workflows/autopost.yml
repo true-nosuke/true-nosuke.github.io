@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   build:
@@ -25,20 +26,41 @@ jobs:
         run: |
           pip install groq
 
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
       - name: Generate Article
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           python3 scripts/generate_article.py
 
-      - name: Commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Actions"
-          git add .
-          git commit -m "Add: AI生成記事の自動投稿" || echo "Nothing to commit"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Add: AI生成記事の自動投稿 (${{ steps.date.outputs.date }})"
+          branch: auto-article-${{ steps.date.outputs.date }}
+          delete-branch: true
+          title: "🤖 AI生成記事: ${{ steps.date.outputs.date }}"
+          body: |
+            ## 📝 AI生成記事
+            
+            **生成日時**: ${{ steps.date.outputs.date }}
+            **モデル**: Groq Llama 3.3 70B Versatile
+            
+            ### ✅ レビューポイント
+            - [ ] タイトルが適切か
+            - [ ] 内容に誤りがないか
+            - [ ] Markdown形式が正しいか
+            - [ ] SEO最適化されているか
+            
+            ### 📂 変更ファイル
+            - `_posts/${{ steps.date.outputs.date }}.md`
+            
+            ---
+            *このプルリクエストは自動生成されました。内容を確認後、マージしてください。*
+          labels: |
+            auto-generated
+            content
