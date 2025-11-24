@@ -39,7 +39,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
           commit-message: "Add: AI生成記事の自動投稿 (${{ steps.date.outputs.date }})"
           branch: auto-article-${{ steps.date.outputs.date }}
           delete-branch: true
