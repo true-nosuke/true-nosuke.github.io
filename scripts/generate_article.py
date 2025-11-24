@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 from datetime import datetime
-import google.generativeai as genai
+from groq import Groq
 import os
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-1.5-flash')
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # --- ① AI にランダムテーマを作らせる ---
 topic_prompt = """
@@ -13,8 +12,13 @@ AIに関するブログ記事のテーマを1つ、日本語で提案してく�
 出力は1行のみ。
 """
 
-topic_res = model.generate_content(topic_prompt)
-topic = topic_res.text.strip()
+topic_res = client.chat.completions.create(
+    model="llama-3.1-70b-versatile",
+    messages=[{"role": "user", "content": topic_prompt}],
+    temperature=0.7,
+    max_tokens=100
+)
+topic = topic_res.choices[0].message.content.strip()
 print("Today's topic:", topic)
 
 # --- ② そのテーマで記事を生成 ---
@@ -26,8 +30,13 @@ article_prompt = f"""
 Markdown形式で、タイトル, 導入, H2見出し構成, 本文, まとめ を含めてください。
 """
 
-res = model.generate_content(article_prompt)
-content = res.text
+res = client.chat.completions.create(
+    model="llama-3.1-70b-versatile",
+    messages=[{"role": "user", "content": article_prompt}],
+    temperature=0.7,
+    max_tokens=4000
+)
+content = res.choices[0].message.content
 
 # --- ③ ファイル保存 ---
 date = datetime.now().strftime("%Y-%m-%d")
