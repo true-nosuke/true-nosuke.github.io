@@ -1,0 +1,71 @@
+name: Auto Generate Article
+
+on:
+  schedule:
+    - cron: '0 15 * * *' # 毎日日本時間0:00に実行
+  workflow_dispatch:      # 手動実行も許可
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install openai
+
+      - name: Generate Article
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python3 <<EOF
+from datetime import datetime
+import openai
+import os
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# 今日の日付
+date = datetime.now().strftime("%Y-%m-%d")
+
+# AI に記事を作らせる
+prompt = """
+今日のSEO向けブログ記事を日本語で生成してください。
+構成（タイトル、導入、見出し、本文）を含めてMarkdownで出力。
+テーマは「AI とブログ収益の最新トレンド」。
+"""
+
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+content = response["choices"][0]["message"]["content"]
+
+# 記事ファイルを生成
+filename = f"posts/{date}.md"
+os.makedirs("posts", exist_ok=True)
+with open(filename, "w") as f:
+    f.write(content)
+
+EOF
+
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Auto post" || echo "No changes to commit"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
