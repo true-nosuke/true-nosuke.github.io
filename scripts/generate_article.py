@@ -13,7 +13,7 @@ AIに関するブログ記事のテーマを1つ、日本語で提案してく�
 """
 
 topic_res = client.chat.completions.create(
-    model="llama-3.1-70b-specdec",
+    model="llama-3.3-70b-versatile",
     messages=[{"role": "user", "content": topic_prompt}],
     temperature=0.7,
     max_tokens=100
