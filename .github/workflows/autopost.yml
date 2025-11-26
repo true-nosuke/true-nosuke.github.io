@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install groq
+          pip install google-generativeai
 
       - name: Get current date
         id: date
@@ -55,7 +55,7 @@ jobs:
             ## 📝 AI生成記事
             
             **生成日時**: ${{ steps.date.outputs.date }}
-            **モデル**: Groq Llama 3.3 70B Versatile
+            **モデル**: Google Gemini (gemini-1.5-flash)
             
             ### ✅ レビューポイント
             - [ ] タイトルが適切か
@@ -64,7 +64,7 @@ jobs:
             - [ ] SEO最適化されているか
             
             ### 📂 変更ファイル
-            - `_posts/${{ steps.date.outputs.date }}.md`
+            - `_posts/${{ steps.date.outputs.date }}-*.md`
             
             ---
             *このプルリクエストは自動生成されました。内容を確認後、マージしてください。*
