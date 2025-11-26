@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 from datetime import datetime
-import google.generativeai as genai
+from groq import Groq
 import os
 import re
 import json
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-1.5-flash')
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # --- ① AI にランダムテーマを作らせる ---
 topic_prompt = """
@@ -15,14 +14,13 @@ AI、プログラミング、IT、高校生の勉強のいずれか一つに関�
 出力は1行のみ。タイトルのみを出力してください。
 """
 
-topic_res = model.generate_content(
-    topic_prompt,
-    generation_config=genai.types.GenerationConfig(
-        temperature=0.7,
-        max_output_tokens=100
-    )
+topic_res = client.chat.completions.create(
+    model="llama-3.3-70b-versatile",
+    messages=[{"role": "user", "content": topic_prompt}],
+    temperature=0.7,
+    max_tokens=100
 )
-topic = topic_res.text.strip()
+topic = topic_res.choices[0].message.content.strip()
 print("Today's topic:", topic)
 
 # --- ② そのテーマで記事を生成 ---
@@ -49,14 +47,13 @@ Markdown形式で、H2見出し構成, 本文, まとめ を含めてくださ�
 ・SEOを意識し、関連キーワードを自然に散りばめる
 """
 
-res = model.generate_content(
-    article_prompt,
-    generation_config=genai.types.GenerationConfig(
-        temperature=0.7,
-        max_output_tokens=4000
-    )
+res = client.chat.completions.create(
+    model="llama-3.3-70b-versatile",
+    messages=[{"role": "user", "content": article_prompt}],
+    temperature=0.7,
+    max_tokens=4000
 )
-content = res.text
+content = res.choices[0].message.content
 
 # --- ③ 校正・編集パス ---
 proofreading_prompt = f"""
@@ -79,14 +76,13 @@ proofreading_prompt = f"""
 改善後の記事全体をMarkdown形式で出力してください。
 """
 
-proofreading_res = model.generate_content(
-    proofreading_prompt,
-    generation_config=genai.types.GenerationConfig(
-        temperature=0.3,
-        max_output_tokens=5000
-    )
+proofreading_res = client.chat.completions.create(
+    model="llama-3.3-70b-versatile",
+    messages=[{"role": "user", "content": proofreading_prompt}],
+    temperature=0.3,
+    max_tokens=5000
 )
-content = proofreading_res.text.strip()
+content = proofreading_res.choices[0].message.content.strip()
 
 print("Proofreading completed.")
 
@@ -108,17 +104,16 @@ metadata_prompt = f"""
 - slug: 英語のURL用スラッグ（例: ai-marketing-strategy）
 """
 
-metadata_res = model.generate_content(
-    metadata_prompt,
-    generation_config=genai.types.GenerationConfig(
-        temperature=0.5,
-        max_output_tokens=200
-    )
+metadata_res = client.chat.completions.create(
+    model="llama-3.3-70b-versatile",
+    messages=[{"role": "user", "content": metadata_prompt}],
+    temperature=0.5,
+    max_tokens=200
 )
 
 # JSONをパース（エラー時はデフォルト値）
 try:
-    metadata_text = metadata_res.text.strip()
+    metadata_text = metadata_res.choices[0].message.content.strip()
     # JSON部分のみを抽出（```json ... ``` で囲まれている場合も対応）
     if "```json" in metadata_text:
         metadata_text = metadata_text.split("```json")[1].split("```")[0].strip()
