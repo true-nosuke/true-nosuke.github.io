@@ -9,10 +9,26 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel('gemini-2.0-flash-lite')
 
 # --- ① AI にランダムテーマを作らせる ---
-topic_prompt = """
-AI、プログラミング、IT、高校生の勉強のいずれか一つに関するブログ記事のテーマを1つ、日本語で提案してください。
-毎回異なるテーマで、SEO需要があるもの。
-出力は1行のみ。タイトルのみを出力してください。
+import random
+
+# 3つのカテゴリからランダムに1つ選択
+categories = [
+    "AIと他の分野の組み合わせ（例：AI×マーケティング、AI×医療、AI×教育など）",
+    "プログラミングと他の分野の組み合わせ（例：プログラミング×ビジネス、プログラミング×デザイン、プログラミング×データ分析など）",
+    "高校生の勉強に関するテーマ（例：効率的な勉強法、科目別攻略法、受験対策、進路選択など）"
+]
+selected_category = random.choice(categories)
+
+topic_prompt = f"""
+以下のカテゴリに関するブログ記事のテーマを1つ、日本語で提案してください。
+
+カテゴリ: {selected_category}
+
+条件:
+- 毎回異なる具体的なテーマ
+- SEO需要があり、読者の関心が高いもの
+- 実用性のある内容
+- 出力は1行のみ。タイトルのみを出力してください。
 """
 
 topic_res = model.generate_content(
