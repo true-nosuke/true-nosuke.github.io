@@ -1,4 +1,4 @@
-const STOCK_URL = "https://script.google.com/macros/s/AKfycbzZtlu_z9bK2XL-0_z-Z_f1_dXBsLjkVfl22rXUOLVUZ-hdSN_bAhKnkliUFqaKR5Bb/exec";
+const STOCK_URL = "https://script.google.com/macros/s/AKfycbwRDV8X6_iHqbipxxH0pixUeL8StmX0q5hIJHXnepwS1N0cQwp5Y9_COLexaPsr-jjd/exec";
 const REFRESH_INTERVAL = 10_000;
 const NOTICE_WINDOW_MINUTES = 60;
 
@@ -10,36 +10,24 @@ function toJst(date = new Date()) {
 
 function findActiveNotice(data) {
   const now = toJst();
-  console.debug('[notice] current JST:', now.toISOString());
-  console.debug('[notice] scanning', data.length, 'rows for active notices');
+  const notices = [];
   
   for (const item of data) {
     const message = (item.notice || item.important || item.importantNotice || '').trim();
     const dateStr = (item.noticeDate || item.notice_date || '').trim();
     const timeStr = (item.noticeTime || item.notice_time || '').trim();
 
-    console.debug('[notice] row check:', { message, dateStr, timeStr });
-
-    if (!message || !dateStr || !timeStr) {
-      console.debug('[notice] skipping: missing required fields');
-      continue;
-    }
+    if (!message || !dateStr || !timeStr) continue;
 
     const target = new Date(`${dateStr}T${timeStr}:00+09:00`);
-    if (Number.isNaN(target.getTime())) {
-      console.debug('[notice] skipping: invalid date/time format');
-      continue;
-    }
+    if (Number.isNaN(target.getTime())) continue;
 
     const diffMs = now.getTime() - target.getTime();
-    const diffMinutes = Math.floor(diffMs / 60000);
-    console.debug('[notice] time diff:', diffMinutes, 'minutes');
-
     if (diffMs >= 0 && diffMs <= NOTICE_WINDOW_MINUTES * 60 * 1000) {
-      console.debug('[notice] ✓ ACTIVE NOTICE FOUND');
-      return {
-        key: `${dateStr}|${timeStr}|${message}`,
+      notices.push({
         message,
+        dateStr,
+        timeStr,
         schedule: target.toLocaleString('ja-JP', {
           timeZone: 'Asia/Tokyo',
           month: 'short',
@@ -47,28 +35,28 @@ function findActiveNotice(data) {
           hour: '2-digit',
           minute: '2-digit'
         })
-      };
+      });
     }
   }
-  console.debug('[notice] no active notices found');
-  return null;
+  
+  if (notices.length === 0) return null;
+  
+  return {
+    key: notices.map(n => `${n.dateStr}|${n.timeStr}|${n.message}`).join('::'),
+    notices
+  };
 }
 
 function renderNotice(noticeInfo) {
   const area = document.getElementById('notice-area');
-  if (!area) {
-    console.debug('[notice] render: #notice-area not found');
-    return;
-  }
+  if (!area) return;
 
   if (!noticeInfo || noticeInfo.key === dismissedNoticeKey) {
-    console.debug('[notice] render: hiding (no info or dismissed)');
     area.classList.add('is-hidden');
     area.innerHTML = '';
     return;
   }
 
-  console.debug('[notice] render: showing banner');
   area.classList.remove('is-hidden');
   area.innerHTML = '';
 
@@ -82,21 +70,20 @@ function renderNotice(noticeInfo) {
   label.className = 'notice-label';
   label.textContent = '重要なお知らせ';
 
-  const schedule = document.createElement('p');
-  schedule.className = 'notice-schedule';
-  schedule.textContent = `予定: ${noticeInfo.schedule}`;
+  content.appendChild(label);
 
-  const message = document.createElement('p');
-  message.className = 'notice-message';
-  message.textContent = noticeInfo.message;
-
-  content.append(label, schedule, message);
+  noticeInfo.notices.forEach(notice => {
+    const message = document.createElement('p');
+    message.className = 'notice-message';
+    message.textContent = notice.message;
+    content.appendChild(message);
+  });
 
   const closeBtn = document.createElement('button');
   closeBtn.type = 'button';
   closeBtn.className = 'notice-close';
   closeBtn.setAttribute('aria-label', 'このお知らせを閉じる');
-  closeBtn.textContent = '×';
+  //!closeBtn.textContent = '×';
   closeBtn.addEventListener('click', () => {
     dismissedNoticeKey = noticeInfo.key;
     renderNotice(null);
@@ -117,11 +104,6 @@ async function loadStock() {
     const data = await res.json();
     if (!Array.isArray(data)) throw new Error('Invalid data format');
 
-    console.debug('[stock] fetched rows:', data.length);
-    if (data.length) {
-      console.debug('[stock] first row sample:', data[0]);
-    }
-
     renderNotice(findActiveNotice(data));
 
     if (!data.length) {
@@ -138,7 +120,7 @@ async function loadStock() {
         </div>
       `).join('') + '</div>';
   } catch (err) {
-    console.error('loadStock:', err);
+    console.error('loadStock error:', err);
     renderNotice(null);
     container.innerHTML = '<p class="error">データの取得に失敗しました。</p>';
   }
