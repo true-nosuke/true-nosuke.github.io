@@ -10,18 +10,33 @@ function toJst(date = new Date()) {
 
 function findActiveNotice(data) {
   const now = toJst();
+  console.debug('[notice] current JST:', now.toISOString());
+  console.debug('[notice] scanning', data.length, 'rows for active notices');
+  
   for (const item of data) {
     const message = (item.notice || item.important || item.importantNotice || '').trim();
     const dateStr = (item.noticeDate || item.notice_date || '').trim();
     const timeStr = (item.noticeTime || item.notice_time || '').trim();
 
-    if (!message || !dateStr || !timeStr) continue;
+    console.debug('[notice] row check:', { message, dateStr, timeStr });
+
+    if (!message || !dateStr || !timeStr) {
+      console.debug('[notice] skipping: missing required fields');
+      continue;
+    }
 
     const target = new Date(`${dateStr}T${timeStr}:00+09:00`);
-    if (Number.isNaN(target.getTime())) continue;
+    if (Number.isNaN(target.getTime())) {
+      console.debug('[notice] skipping: invalid date/time format');
+      continue;
+    }
 
     const diffMs = now.getTime() - target.getTime();
+    const diffMinutes = Math.floor(diffMs / 60000);
+    console.debug('[notice] time diff:', diffMinutes, 'minutes');
+
     if (diffMs >= 0 && diffMs <= NOTICE_WINDOW_MINUTES * 60 * 1000) {
+      console.debug('[notice] ✓ ACTIVE NOTICE FOUND');
       return {
         key: `${dateStr}|${timeStr}|${message}`,
         message,
@@ -35,19 +50,25 @@ function findActiveNotice(data) {
       };
     }
   }
+  console.debug('[notice] no active notices found');
   return null;
 }
 
 function renderNotice(noticeInfo) {
   const area = document.getElementById('notice-area');
-  if (!area) return;
+  if (!area) {
+    console.debug('[notice] render: #notice-area not found');
+    return;
+  }
 
   if (!noticeInfo || noticeInfo.key === dismissedNoticeKey) {
+    console.debug('[notice] render: hiding (no info or dismissed)');
     area.classList.add('is-hidden');
     area.innerHTML = '';
     return;
   }
 
+  console.debug('[notice] render: showing banner');
   area.classList.remove('is-hidden');
   area.innerHTML = '';
 
