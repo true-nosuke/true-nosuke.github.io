@@ -4,7 +4,7 @@ async function loadStock() {
   const container = document.getElementById('stock-area');
   if (!container) return;
   
-  container.innerHTML = '<p class="loading">読み込み中…</p>';
+  container.innerHTML = '<p class="loading">しばらくお待ち下さい…</p>';
   
   try {
     const res = await fetch(STOCK_URL, { cache: 'no-store' });
