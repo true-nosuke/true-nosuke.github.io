@@ -1,0 +1,9 @@
+/* section-media-hero */
+section.section-media-hero .marquee.links-inline .marquee-header .marquee-tagline {
+    max-width: 500px;
+}
+
+/* section-questions-answers */
+.section-questions-answers #accordion-item-questions-answers-accordion-item1-tray sup.footnote.footnote-comma {
+    top: 2px;
+}
